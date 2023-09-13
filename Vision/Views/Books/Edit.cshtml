@@ -1,0 +1,96 @@
+﻿@model Book
+<h1 class="alert alert-success text-center">Edit Book info</h1>
+
+<div class="row">
+<form class="col-4" method="post" asp-controller="Books" asp-action="EditCurrent" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input type="hidden" asp-for="Id"/>
+    <input type="hidden" asp-for="ImagePath" />
+    
+
+    <div>
+        <label asp-for="Title"></label>
+        <input type="text" asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    
+     <div>
+    <label asp-for="Description"></label>
+    <input type="text" asp-for="Description" class="form-control" />
+    <span asp-validation-for="Description" class="text-danger"></span>
+
+     </div>
+
+     <div>
+    <label asp-for="AuthorName"></label>
+    <input type="text" asp-for="AuthorName" class="form-control" />
+    <span asp-validation-for="AuthorName" class="text-danger"></span>
+
+     </div>
+     <div>
+    <label asp-for="ReleaseDate"></label>
+    <input asp-for="ReleaseDate" class="form-control" />
+    <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+
+      </div>
+      <div>
+    <label asp-for="Stock"></label>
+    <input type="number" asp-for="Stock" class="form-control" />
+    <span asp-validation-for="Stock" class="text-danger"></span>
+
+     </div>
+
+     <div>
+    <label asp-for="NumberOfSales"></label>
+    <input type="number" asp-for="NumberOfSales" class="form-control" />
+    <span asp-validation-for="NumberOfSales" class="text-danger"></span>
+
+     </div>
+
+    <div>
+    <label asp-for="Price"></label>
+    <input type="text" asp-for="Price" class="form-control" />
+    <span asp-validation-for="Price" class="text-danger"></span>
+
+    </div>
+
+    <div>
+    <label asp-for="CategoryId"></label>
+    <select class="form-control" asp-for="CategoryId"
+            asp-items="@(new SelectList(ViewBag.AllCategories, "Id", "Name"))">
+        <option selected disabled>Select...</option>
+    </select>
+    <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+     <div>
+       <label asp-for="ImagePath"></label>
+        <input type="file" name="imageFormFile" id="imageFormFile" class="form-control" accept=".png,.jpg,.jpeg" onchange="AddImage()" />
+            <span asp-validation-for="ImagePath"></span>
+     </div>
+        <button type="submit" class="btn btn-primary mt-2 col-12 fw-bold">Edit</button>
+    </form>
+
+    <div class="col-4">
+        <img src="@Model.ImagePath" id="bookImage" class="card" style="display:inline-block;width:20rem" />
+    </div>
+
+    
+</div>
+<a asp-controller="Books" asp-action="GetIndexView" class="btn btn-success mt-2 col-12 fw-bold">
+    <i class="bi bi-arrow-left-circle"> Back to List</i>
+</a>
+
+
+@section Scripts{
+    <script>
+        function AddImage() {
+            document.getElementById('bookImage').src = window.URL.createObjectURL(document.getElementById('imageFormFile').files[0]);
+
+            
+        }
+    </script>
+}
+

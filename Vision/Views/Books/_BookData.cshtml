@@ -1,0 +1,44 @@
+﻿@{
+    Book book = (Book)ViewBag.CurrentBook;
+}
+<div class="row">
+   <dl class="col-6 row">
+       <dt class="col-2">@Html.DisplayNameFor(b=>book.Id)</dt>
+          <dd class="col-10">@Html.DisplayFor(b=>book.Id)</dd>
+
+        <dt class="col-2">@Html.DisplayNameFor(b=>book.Title)</dt>
+        <dd class="col-10">@Html.DisplayFor(b=>book.Title)</dd>
+
+        <dt class="col-2">@Html.DisplayNameFor(b=>book.Description)</dt>
+        <dd class="col-10">@Html.DisplayFor(b=>book.Description)</dd>
+
+        <dt class="col-2">@Html.DisplayNameFor(b=>book.AuthorName)</dt>
+        <dd class="col-10">@Html.DisplayFor(b=>book.AuthorName)</dd>
+
+        <dt class="col-2">@Html.DisplayNameFor(b=>book.ReleaseDate)</dt>
+        <dd class="col-10">@Html.DisplayFor(b=>book.ReleaseDate)</dd>
+
+        <dt class="col-2">@Html.DisplayNameFor(b=>book.Stock)</dt>
+        <dd class="col-10">@Html.DisplayFor(b=>book.Stock)</dd>
+
+        <dt class="col-2">@Html.DisplayNameFor(b=>book.NumberOfSales)</dt>
+        <dd class="col-10">@Html.DisplayFor(b=>book.NumberOfSales)</dd>
+
+        <dt class="col-2">@Html.DisplayNameFor(b=>book.Price)</dt>
+        <dd class="col-10">@Html.DisplayFor(b=>book.Price)</dd>
+
+        
+
+        <dt class="col-2">@Html.DisplayNameFor(b=>book.CategoryId)</dt>
+        <dd class="col-10">
+            <a asp-controller="Books" asp-action="GetDetailsView" asp-route-id="@book.CategoryId" style="text-decoration:none ">
+
+                @Html.DisplayFor(b=>book.Category.Name)
+            </a>
+        </dd>
+	</dl>
+    <div class="col-4">
+        <img src="@book.ImagePath" class="card" style="display:inline-block;width:20rem" />
+</div>
+</div>
+    

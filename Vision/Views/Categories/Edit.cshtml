@@ -1,0 +1,50 @@
+﻿@model Category
+<h1 class="alert alert-success text-center">Edit @Model.Name info</h1>
+
+<div class="row">
+    <form class="col-4" method="post" asp-controller="Categories" asp-action="EditCurrent" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input type="hidden" asp-for="Id"/>
+    <input type="hidden" asp-for="ImagePath" />
+
+        <div>
+            <label asp-for="Name"></label>
+            <input type="text" asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="Description"></label>
+            <input type="text" asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+
+        <div>
+            <label asp-for="ImagePath"></label>
+            <input type="file" name="imageFormFile" id="imageFormFile" class="form-control" accept=".png,.jpg,.jpeg" onchange="AddImage()" />
+            <span asp-validation-for="ImagePath"></span>
+        </div>
+          <button type="submit" class="btn btn-primary mt-2 col-12 fw-bold">Edit</button>
+    </form>
+    <div class="col-4">
+        <img src="@Model.ImagePath" id="catImage" class="card" style="display:inline-block;width:20rem" />
+    </div>
+  
+    
+</div>
+ <a asp-controller="Categories" asp-action="GetIndexView" class="btn btn-success mt-2 col-12 fw-bold">
+	<i class="bi bi-arrow-left-circle"> Back to List</i>
+</a>
+
+
+@section Scripts{
+    <script>
+        function AddImage() {
+            document.getElementById('catImage').src = window.URL.createObjectURL(document.getElementById('imageFormFile').files[0]);
+
+            
+    </script>
+}
+

@@ -1,0 +1,124 @@
+﻿@model IEnumerable<Category>
+
+<h1 class="alert alert-success text-center">Categories Index</h1>
+
+<a asp-controller="Categories" asp-action="GetCreateView" class="btn btn-success mb-1">Create New Category</a>
+
+<div class="row mb-2">
+    <form method="get" class="col-4" asp-controller="Categories" asp-action="GetIndexView">
+
+        <input type="hidden" name="pageSize" value="@ViewBag.pageSize" />
+        <input type="hidden" name="pageNumber" value="@ViewBag.pageNumber" />
+
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" value="@ViewBag.CurrentSearch" />
+            <button type="submit" class="btn btn-secondary input-group-append"><i class="bi bi-search"></i></button>
+
+        </div>
+
+    </form>
+
+    <form method="get" asp-controller="Categories" asp-action="GetIndexView" class="col-4">
+        <div class="input-group">
+            
+            <input type="hidden" name="search" value="@ViewBag.CurrentSearch" />
+
+            <input type="number" name="pageSize" id="pageSize" title="page size" class="text-center col-2" value="@ViewBag.pageSize" />
+            <input type="number" name="pageNumber" id="pageNumber" title="page Number" class="text-center col-2" value="@ViewBag.pageNumber" />
+            <button type="submit" class="btn btn-secondary input-group-append">
+                <i class="bi bi-file-earmark"></i>
+
+            </button>
+
+        </div>
+    </form>
+ </div>
+
+@if (Model.Count() > 0)
+{
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr class="table-primary">
+                <th>@Html.DisplayNameFor(c=>c.Id)</th>
+                <th>
+                    <div style="width:50%;float:left;text-align:left">@Html.DisplayNameFor(c=>c.Name)</div>
+                    <div style="width:50%;float:right;text-align:right">
+                        <a asp-controller="Categories"
+                           asp-action="GetIndexView"
+                           asp-route-sortType="Name"
+                           asp-route-sortOrder="asc"
+                           asp-route-search="@ViewBag.CurrentSearch"
+                           
+                           asp-route-pageSize="@ViewBag.PageSize"
+                           asp-route-pageNumber="@ViewBag.PageNumber"
+                           style="text-decoration:none ">
+                            <i class="bi bi-arrow-up text-white"></i>
+                        </a>
+                        <a asp-controller="Categories"
+                           asp-action="GetIndexView"
+                           asp-route-sortType="Name"
+                           asp-route-sortOrder="desc"
+                           asp-route-search="@ViewBag.CurrentSearch"
+                           
+                           asp-route-pageSize="@ViewBag.PageSize"
+                           asp-route-pageNumber="@ViewBag.PageNumber"
+                           style="text-decoration:none ">
+                            <i class="bi bi-arrow-down text-white"></i>
+                        </a>
+                    </div>
+                </th>
+                <th>@Html.DisplayNameFor(c=>c.Description)</th>
+                <th>@Html.DisplayNameFor(c=>c.ImagePath)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cat in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(c=>cat.Id)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c=>cat.Name)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c=>cat.Description)
+
+                    </td>
+                    <td>
+                        <div style="width:100%;height:100%">
+                            <img src="@cat.ImagePath" style="width:15rem; height:15rem; border-radius:50%" />
+                        </div>
+                    </td>
+                    <td>
+                        <a asp-controller="Categories" asp-action="GetDetailsView" asp-route-id="@cat.Id"
+                           class="btn btn-outline-primary" title="Details">
+                            <i class="bi bi-list-ul"></i>
+                        </a>
+                        <a asp-controller="Categories" asp-action="GetEditView" asp-route-id="@cat.Id"
+                           class="btn btn-outline-success" title="Edit">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a asp-controller="Categories" asp-action="GetDeleteView" asp-route-id="@cat.Id"
+                           class="btn btn-outline-danger" title="Delete">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+else
+{
+<h1 class="alert alert-danger text-center">There is no data.</h1>
+}
+
+
+<br />
+<br />
+<br />
